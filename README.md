@@ -12,3 +12,7 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+## Project URL
+
+You can find this project hosted [here](https://bmawebdev.github.io/BirdyCMS-app).

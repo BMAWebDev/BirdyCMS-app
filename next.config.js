@@ -4,6 +4,7 @@ const nextConfig = {
   swcMinify: true,
   env: {
     SERVER_URL: process.env.SERVER_URL,
+    DATABASE_URL: process.env.DATABASE_URL,
   },
 };
 
