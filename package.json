@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.2",
+    "jsonwebtoken": "^8.5.1",
     "knex": "^2.2.0",
     "mysql": "^2.18.1",
     "next": "12.2.5",
@@ -19,6 +21,8 @@
     "zustand": "^4.1.1"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.9",
     "@types/node": "^18.7.14",
     "@types/react": "^18.0.18",
     "eslint": "8.23.0",
