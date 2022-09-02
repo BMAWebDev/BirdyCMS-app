@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "src/lib/axios";
 
-// auth
-import { checkAuth } from "src/auth";
+import { useStore } from "src/store";
 
 const Dashboard: NextPage = () => {
   const [usersNumber, setUsersNumber] = useState<number>(0);
@@ -13,7 +12,7 @@ const Dashboard: NextPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!checkAuth()) router.push("/login");
+    // if (!checkAuth()) router.push("/login");
 
     axios.get("users/readMany").then((res: any) => {
       if (res.users?.length) setUsersNumber(res.users.length);

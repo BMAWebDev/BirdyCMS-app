@@ -1,11 +1,7 @@
-import { useStore } from "src/store";
+import decodeToken from "./decode-token";
 
-const checkAuth = () => {
-  const { authToken } = useStore.getState();
-
-  // to be continued once i finish the JWT auth
-
-  return !!authToken;
+const checkAuth = (): boolean => {
+  return !!decodeToken();
 };
 
 export default checkAuth;
