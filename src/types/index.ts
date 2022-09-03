@@ -9,3 +9,7 @@ export interface TokenJWT {
   id: number;
   username: string;
 }
+
+export interface PageProps {
+  isAuthenticated: boolean;
+}

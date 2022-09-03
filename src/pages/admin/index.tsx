@@ -1,31 +1,29 @@
 import type { NextPage } from "next";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { ReactElement, useEffect, useState } from "react";
+import { useAuth } from "src/auth";
 import axios from "src/lib/axios";
 
-import { useStore } from "src/store";
+import { Loading } from "src/components";
 
-const Dashboard: NextPage = () => {
+const Dashboard: NextPage = (): ReactElement => {
   const [usersNumber, setUsersNumber] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
-  const router = useRouter();
+
+  useAuth();
 
   useEffect(() => {
-    // if (!checkAuth()) router.push("/login");
-
     axios.get("users/readMany").then((res: any) => {
       if (res.users?.length) setUsersNumber(res.users.length);
       setLoading(false);
     });
   }, []);
 
+  if (loading) return <Loading />;
+
   return (
     <div>
-      {loading && <h1>Loading...</h1>}
-      {!loading && (
-        <h1>dashboard salut! Number of registered users: {usersNumber}</h1>
-      )}
+      <h1>dashboard salut! Number of registered users: {usersNumber}</h1>
     </div>
   );
 };
