@@ -3,6 +3,9 @@ import axios from "src/lib/axios";
 import { useStore } from "src/store";
 import { useRouter } from "next/router";
 
+import cs from "classnames";
+import s from "src/components/Login/style.module.scss";
+
 export default function Login(): ReactElement {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -40,27 +43,29 @@ export default function Login(): ReactElement {
   };
 
   return (
-    <div>
-      <h1>login page!</h1>
+    <div id={cs(s.login)}>
+      <div className={cs(s.masterContainer)}>
+        <h1>Login page</h1>
 
-      <form onSubmit={handleForm}>
-        <label htmlFor="">Username:</label> <br />
-        <input
-          type="text"
-          name=""
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <br />
-        <br />
-        <label htmlFor="">Password:</label> <br />
-        <input
-          type="password"
-          name=""
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
-        <button type="submit">Login</button>
-      </form>
+        <form onSubmit={handleForm}>
+          <label htmlFor="">Username:</label> <br />
+          <input
+            type="text"
+            name=""
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <br />
+          <br />
+          <label htmlFor="">Password:</label> <br />
+          <input
+            type="password"
+            name=""
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <br />
+          <button type="submit">Login</button>
+        </form>
+      </div>
     </div>
   );
 }

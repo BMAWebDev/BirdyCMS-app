@@ -1,0 +1,38 @@
+#login {
+  background: url("../../assets/img/login-background.jpg") center no-repeat;
+  background-size: cover;
+
+  .masterContainer {
+    text-align: center;
+    color: #fff;
+    backdrop-filter: blur(4px);
+    height: 100vh;
+    padding-top: 300px;
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    form {
+      font-size: 18px;
+
+      input {
+        border: 0;
+        outline: none;
+        border-radius: 4px;
+        padding: 5px 10px;
+      }
+
+      button {
+        margin-top: 20px;
+        border: 0;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        background-color: #de7449;
+        color: #fff;
+        font-size: 18px;
+      }
+    }
+  }
+}
