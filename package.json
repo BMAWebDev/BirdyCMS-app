@@ -1,7 +1,8 @@
 {
-  "name": "test",
-  "version": "0.1.0",
+  "name": "birdycms",
+  "version": "0.1.1",
   "private": true,
+  "author": "Bardita Mihai-Andrei",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

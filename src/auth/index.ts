@@ -1,3 +1,4 @@
-import useAuth from "./use-auth";
+import useAuth from './use-auth';
+import usersExist from './users-exist';
 
-export { useAuth };
+export { useAuth, usersExist };
