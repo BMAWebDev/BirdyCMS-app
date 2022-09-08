@@ -7,6 +7,7 @@ export const up = async (knex: Knex): Promise<void> => {
     table.string('username');
     table.string('password').notNullable();
     table.string('email_address').notNullable();
+    table.string('role').notNullable().defaultTo('client');
 
     table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
   });
