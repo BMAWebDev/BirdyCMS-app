@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-config();
+config({ path: '../../.env' });
 
 export default {
   development: {
@@ -11,7 +11,7 @@ export default {
     },
     migrations: {
       directory: './migrations',
-      tableName: 'knex_migrations',
+      tableName: 'migrations',
     },
     seeds: {
       directory: './seeds',
@@ -26,7 +26,7 @@ export default {
     },
     migrations: {
       directory: './migrations',
-      tableName: 'knex_migrations',
+      tableName: 'migrations',
     },
     // IMPORTANT: running seeds on production environments are disabled
     // add them only if you really know what you are doing

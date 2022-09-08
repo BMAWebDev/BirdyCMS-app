@@ -1,6 +1,6 @@
 {
   "name": "birdycms",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "author": "Bardita Mihai-Andrei",
   "scripts": {
@@ -29,6 +29,7 @@
     "classnames": "^2.3.1",
     "eslint": "8.23.0",
     "eslint-config-next": "12.2.5",
-    "sass": "^1.54.8"
+    "sass": "^1.54.8",
+    "ts-node": "^10.9.1"
   }
 }

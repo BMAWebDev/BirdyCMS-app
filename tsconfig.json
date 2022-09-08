@@ -1,4 +1,11 @@
 {
+  // powershell compiling ts files
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
+  // project compiling ts files
   "compilerOptions": {
     "baseUrl": ".",
     "target": "es5",
