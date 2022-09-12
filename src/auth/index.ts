@@ -1,5 +1,5 @@
 import useAuth from './use-auth';
 import usersExist from './users-exist';
-import useUsersExist from './use-users-exist';
+import verifyAdmin from './verify-admin';
 
-export { useAuth, usersExist, useUsersExist };
+export { useAuth, usersExist, verifyAdmin };

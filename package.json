@@ -1,6 +1,6 @@
 {
   "name": "birdycms",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": true,
   "author": "Bardita Mihai-Andrei",
   "scripts": {
@@ -16,10 +16,12 @@
     "formik": "^2.2.9",
     "jsonwebtoken": "^8.5.1",
     "knex": "^2.2.0",
+    "lodash": "^4.17.21",
     "mysql": "^2.18.1",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-loading": "^2.0.3",
     "yup": "^0.32.11",
     "zustand": "^4.1.1"
   },

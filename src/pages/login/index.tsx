@@ -1,14 +1,14 @@
-import { ReactElement, useState, FormEvent } from "react";
-import axios from "src/lib/axios";
-import { useStore } from "src/store";
-import { useRouter } from "next/router";
+import { ReactElement, useState, FormEvent } from 'react';
+import axios from 'src/lib/axios';
+import { useStore } from 'src/store';
+import { useRouter } from 'next/router';
 
-import cs from "classnames";
-import s from "src/components/Login/style.module.scss";
+import cs from 'classnames';
+import s from 'src/components/Login/style.module.scss';
 
 export default function Login(): ReactElement {
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const { setAuthToken } = useStore();
   const router = useRouter();
 
@@ -16,17 +16,17 @@ export default function Login(): ReactElement {
     e.preventDefault();
 
     if (!username) {
-      alert("username missing");
+      alert('username missing');
       return false;
     }
 
     if (!password) {
-      alert("password missing");
+      alert('password missing');
       return false;
     }
 
     axios
-      .post("users/login", {
+      .post('users/login', {
         username,
         password,
       })
@@ -35,7 +35,7 @@ export default function Login(): ReactElement {
 
         alert(res.message);
 
-        router.push("/admin");
+        router.push('/admin');
       })
       .catch((err) => {
         console.error(err);
@@ -48,24 +48,30 @@ export default function Login(): ReactElement {
         <h1>Login page</h1>
 
         <form onSubmit={handleForm}>
-          <label htmlFor="">Username:</label> <br />
+          <label htmlFor=''>Username:</label> <br />
           <input
-            type="text"
-            name=""
+            type='text'
+            name=''
             onChange={(e) => setUsername(e.target.value)}
           />
           <br />
           <br />
-          <label htmlFor="">Password:</label> <br />
+          <label htmlFor=''>Password:</label> <br />
           <input
-            type="password"
-            name=""
+            type='password'
+            name=''
             onChange={(e) => setPassword(e.target.value)}
           />
           <br />
-          <button type="submit">Login</button>
+          <button type='submit'>Login</button>
         </form>
       </div>
     </div>
   );
 }
+
+// route guard
+import { verifyAdmin } from 'src/auth';
+export const getServerSideProps = async (context) => {
+  return await verifyAdmin(context);
+};
