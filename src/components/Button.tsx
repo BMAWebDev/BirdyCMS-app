@@ -4,7 +4,13 @@ import Link from 'next/link';
 
 import { Button } from 'src/types';
 
-const Button = ({ href, type, children, ...props }: Button): ReactElement => {
+const Button = ({
+  className,
+  href,
+  type,
+  children,
+  ...props
+}: Button): ReactElement => {
   if (href) {
     if (startsWith(href, 'http')) {
       props.target = '_blank';
@@ -18,9 +24,18 @@ const Button = ({ href, type, children, ...props }: Button): ReactElement => {
   }
 
   return (
-    <button type={type ? type : 'button'} {...props}>
-      {children}
-    </button>
+    (!className && (
+      <button type={type ? type : 'button'} {...props}>
+        {children}
+      </button>
+    )) ||
+    (className && (
+      <div className={className}>
+        <button type={type ? type : 'button'} {...props}>
+          {children}
+        </button>
+      </div>
+    ))
   );
 };
 

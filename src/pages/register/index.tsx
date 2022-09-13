@@ -1,4 +1,4 @@
-import { ReactElement, useState, useEffect } from 'react';
+import { ReactElement, useState } from 'react';
 import axios from 'src/lib/axios';
 import { useStore } from 'src/store';
 import { useRouter } from 'next/router';
@@ -8,27 +8,22 @@ import cs from 'classnames';
 import s from 'src/components/Register/style.module.scss';
 
 // Form
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import { initialValues, validationSchema } from 'src/models/register';
 import { Values } from 'src/components/Register/types';
 import { Button } from 'src/components';
+import { Group } from 'src/components/Formik';
 
-export default function Login(): ReactElement {
-  const [usersExistResult, setUsersExistResult] = useState<boolean>(true);
+export default function Register({ usersExist }): ReactElement {
+  const [responseMessage, setResponseMessage] = useState<string>('');
   const { setAuthToken } = useStore();
   const router = useRouter();
-
-  useEffect(() => {
-    usersExist().then((res) => {
-      setUsersExistResult(res);
-    });
-  }, []);
 
   const handleSubmit = async (values: Values): Promise<any> => {
     try {
       const res: any = await axios.post('users/register', values);
       setAuthToken(res.token);
-      alert(res.message);
+      setResponseMessage(res.message);
 
       router.push('/login');
     } catch (err) {
@@ -37,58 +32,94 @@ export default function Login(): ReactElement {
   };
 
   return (
-    <div id={cs(s.login)}>
-      <div className={cs(s.masterContainer)}>
-        <div className={cs(s.contentContainer)}>
-          {!usersExistResult && (
-            <p>
-              It seems that you are the first user to the register, so please
-              setup your admin account first.
-            </p>
-          )}
+    <div id={cs(s.register)}>
+      <div
+        className={cs(s.masterContainer, 'container d-flex align-items-center')}
+      >
+        <div className='row'>
+          <div className='col-lg-12'>
+            <h1 className='text'>Register page</h1>
 
-          <h1>Register page</h1>
-
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={(values: Values) => handleSubmit(values)}
-          >
-            {({ isSubmitting }) => (
-              <Form>
-                <Field type='text' name='username' />
-                <ErrorMessage name='username' component='div' />
-                <br />
-                <br />
-
-                <Field type='email' name='email' />
-                <ErrorMessage name='email' component='div' />
-                <br />
-                <br />
-
-                <Field type='password' name='password' />
-                <ErrorMessage name='password' component='div' />
-                <br />
-                <br />
-
-                <Field type='password' name='confirmPassword' />
-                <ErrorMessage name='confirmPassword' component='div' />
-                <br />
-                <br />
-
-                <Field type='text' name='role' disabled />
-                <ErrorMessage name='role' component='div' />
-                <br />
-                <br />
-
-                <Button type='submit' disabled={isSubmitting}>
-                  Submit
-                </Button>
-              </Form>
+            {!usersExist && (
+              <p className='text'>
+                It seems that you are the first user to the register, so please
+                setup your admin account first.
+              </p>
             )}
-          </Formik>
+          </div>
         </div>
+
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={(values: Values) => handleSubmit(values)}
+        >
+          {({ isSubmitting }) => (
+            <Form className='row'>
+              <Group
+                className='col-lg-6 d-flex flex-column'
+                labelText='Username:'
+                name='username'
+              >
+                <Field type='text' name='username' />
+              </Group>
+
+              <Group
+                className='col-lg-6 d-flex flex-column'
+                labelText='Email:'
+                name='email'
+              >
+                <Field type='email' name='email' />
+              </Group>
+
+              <Group
+                className='col-lg-6 d-flex flex-column'
+                labelText='Password:'
+                name='password'
+              >
+                <Field type='password' name='password' />
+              </Group>
+
+              <Group
+                className='col-lg-6 d-flex flex-column'
+                labelText='Confirm password:'
+                name='confirmPassword'
+              >
+                <Field type='password' name='confirmPassword' />
+              </Group>
+
+              <Group
+                className='col-lg-12 d-flex flex-column'
+                labelText='Role:'
+                name='role'
+              >
+                <Field type='text' name='role' disabled />
+                <span className='text' style={{ fontSize: '18px' }}>
+                  {responseMessage}
+                </span>
+              </Group>
+
+              <Button
+                className='col-lg-12'
+                type='submit'
+                disabled={isSubmitting}
+              >
+                Submit
+              </Button>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );
 }
+
+export const getServerSideProps = async () => {
+  const usersExistRes: boolean = await usersExist();
+
+  return {
+    props: {
+      usersExist: usersExistRes,
+    },
+  };
+};

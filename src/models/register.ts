@@ -16,5 +16,5 @@ export const initialValues = {
   email: '',
   password: '',
   confirmPassword: '',
-  role: 'admin',
+  role: 'superadmin',
 };

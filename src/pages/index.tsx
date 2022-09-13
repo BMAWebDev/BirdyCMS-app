@@ -74,3 +74,9 @@ export default function Home(): ReactElement {
     </div>
   );
 }
+
+// route guard
+import { verifyAdmin } from 'src/auth';
+export const getServerSideProps = async (context) => {
+  return await verifyAdmin(context);
+};

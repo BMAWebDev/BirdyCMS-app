@@ -18,6 +18,7 @@ export interface PageProps {
 }
 
 export interface Button {
+  className?: string;
   href?: string;
   children: ReactNode;
   target?: string;

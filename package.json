@@ -1,6 +1,6 @@
 {
   "name": "birdycms",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": true,
   "author": "Bardita Mihai-Andrei",
   "scripts": {
@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "bcryptjs": "^2.4.3",
+    "bootstrap": "^5.2.1",
     "dotenv": "^16.0.2",
     "formik": "^2.2.9",
     "jsonwebtoken": "^8.5.1",
