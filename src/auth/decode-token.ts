@@ -1,12 +1,15 @@
-import jwt from "jsonwebtoken";
-import { useStore } from "src/store";
-import { TokenJWT } from "src/types";
+import jwt from 'jsonwebtoken';
+import { TokenJWT } from 'src/types';
 
-const decodeToken = (): Object | null => {
-  const { authToken } = useStore.getState();
-  const token = jwt.decode(authToken) as TokenJWT;
-  if (token) {
-    const { id, username } = token;
+interface DecodedToken {
+  id: number;
+  username: string;
+}
+
+const decodeToken = (token): DecodedToken | null => {
+  const decodedToken = jwt.decode(token) as TokenJWT;
+  if (decodedToken) {
+    const { id, username } = decodedToken;
     return { id, username };
   }
   return null;

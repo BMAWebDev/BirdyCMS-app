@@ -2,7 +2,6 @@ import { ReactElement, useState } from 'react';
 import axios from 'src/lib/axios';
 import { useStore } from 'src/store';
 import { useRouter } from 'next/router';
-import { usersExist } from 'src/auth';
 
 import cs from 'classnames';
 import s from 'src/components/Register/style.module.scss';
@@ -13,6 +12,7 @@ import { initialValues, validationSchema } from 'src/models/register';
 import { Values } from 'src/components/Register/types';
 import { Button } from 'src/components';
 import { Group } from 'src/components/Formik';
+import { verifyAdmin } from 'src/auth';
 
 export default function Register({ usersExist }): ReactElement {
   const [responseMessage, setResponseMessage] = useState<string>('');
@@ -114,12 +114,6 @@ export default function Register({ usersExist }): ReactElement {
   );
 }
 
-export const getServerSideProps = async () => {
-  const usersExistRes: boolean = await usersExist();
-
-  return {
-    props: {
-      usersExist: usersExistRes,
-    },
-  };
+export const getServerSideProps = async (context) => {
+  return await verifyAdmin(context);
 };
