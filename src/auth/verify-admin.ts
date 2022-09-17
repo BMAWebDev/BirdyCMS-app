@@ -16,9 +16,6 @@ const verifyAdmin: VerifyAdmin = async (context, isAdmin = false) => {
   const { users }: UsersResponse = await axios.get('users/readMany');
 
   const { req, res } = context;
-  let props = {
-    usersExist: false,
-  };
 
   if (users) {
     if (isAdmin) {
@@ -29,7 +26,7 @@ const verifyAdmin: VerifyAdmin = async (context, isAdmin = false) => {
 
         if (users?.find((user: { id: number }) => user.id == id)) {
           return {
-            props,
+            props: {},
           };
         }
       }
@@ -39,7 +36,7 @@ const verifyAdmin: VerifyAdmin = async (context, isAdmin = false) => {
           permanent: false,
           destination: '/login',
         },
-        props,
+        props: {},
       };
     }
 
@@ -49,7 +46,7 @@ const verifyAdmin: VerifyAdmin = async (context, isAdmin = false) => {
           permanent: false,
           destination: '/register',
         },
-        props,
+        props: {},
       };
 
     return {
@@ -60,7 +57,7 @@ const verifyAdmin: VerifyAdmin = async (context, isAdmin = false) => {
   }
 
   const returnedOptions: any = {
-    props,
+    props: {},
   };
 
   if (req.url != '/register') {
