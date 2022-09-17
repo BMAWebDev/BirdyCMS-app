@@ -1,70 +1,77 @@
-import { ReactElement, useState, FormEvent } from 'react';
+import { ReactElement, useState } from 'react';
 import axios from 'src/lib/axios';
-import { useStore } from 'src/store';
 import { useRouter } from 'next/router';
 
 import cs from 'classnames';
 import s from 'src/components/Login/style.module.scss';
 
+// Form
+import { Formik, Form, Field } from 'formik';
+import { initialValues, validationSchema } from 'src/models/login';
+import { Values } from 'src/components/Register/types';
+import { Button } from 'src/components';
+import { Group } from 'src/components/Formik';
+
 export default function Login(): ReactElement {
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const { setAuthToken } = useStore();
+  const [responseMessage, setResponseMessage] = useState<string>('');
   const router = useRouter();
 
-  const handleForm = (e: FormEvent<EventTarget>): boolean => {
-    e.preventDefault();
+  const handleSubmit = async (values: Values): Promise<any> => {
+    try {
+      const res: any = await axios.post('users/login', values);
+      setResponseMessage(res.message);
 
-    if (!username) {
-      alert('username missing');
-      return false;
+      router.push('/');
+    } catch (err) {
+      console.error(err);
     }
-
-    if (!password) {
-      alert('password missing');
-      return false;
-    }
-
-    axios
-      .post('users/login', {
-        username,
-        password,
-      })
-      .then((res: any) => {
-        setAuthToken(res.token);
-
-        alert(res.message);
-
-        router.push('/admin');
-      })
-      .catch((err) => {
-        console.error(err);
-      });
   };
 
   return (
     <div id={cs(s.login)}>
-      <div className={cs(s.masterContainer)}>
-        <h1>Login page</h1>
+      <div className={cs(s.masterContainer, 'container')}>
+        <div className='row'>
+          <div className='col-lg-12'>
+            <h1 className='text'>Login page</h1>
+          </div>
+        </div>
 
-        <form onSubmit={handleForm}>
-          <label htmlFor=''>Username:</label> <br />
-          <input
-            type='text'
-            name=''
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <br />
-          <br />
-          <label htmlFor=''>Password:</label> <br />
-          <input
-            type='password'
-            name=''
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <br />
-          <button type='submit'>Login</button>
-        </form>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={(values: Values) => handleSubmit(values)}
+        >
+          {({ isSubmitting }) => (
+            <Form className='row'>
+              <Group
+                className='col-lg-12 d-flex flex-column'
+                labelText='Username:'
+                name='username'
+              >
+                <Field type='text' name='username' />
+              </Group>
+
+              <Group
+                className='col-lg-12 d-flex flex-column'
+                labelText='Password:'
+                name='password'
+              >
+                <Field type='password' name='password' />
+                <span className='text' style={{ fontSize: '18px' }}>
+                  {responseMessage}
+                </span>
+              </Group>
+
+              <Button
+                className='col-lg-12'
+                type='submit'
+                disabled={isSubmitting}
+              >
+                Submit
+              </Button>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );

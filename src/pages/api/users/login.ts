@@ -35,7 +35,7 @@ const login = async (req: NextApiRequest, res: NextApiResponse) => {
   const oneDay = 24 * 3600 * 1000;
   setCookie('jwt_token', token, { req, res, maxAge: oneDay });
 
-  return res.status(200).json({ token, message: 'Authentication successful' });
+  return res.status(200).json({ message: 'Authentication successful' });
 };
 
 export default login;

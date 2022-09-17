@@ -62,6 +62,7 @@ const verifyAdmin: VerifyAdmin = async (context, isAdmin = false) => {
   const returnedOptions: any = {
     props,
   };
+
   if (req.url != '/register') {
     returnedOptions.redirect = {
       permanent: false,

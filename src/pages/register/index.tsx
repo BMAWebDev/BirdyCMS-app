@@ -1,6 +1,5 @@
 import { ReactElement, useState } from 'react';
 import axios from 'src/lib/axios';
-import { useStore } from 'src/store';
 import { useRouter } from 'next/router';
 
 import cs from 'classnames';
@@ -12,17 +11,14 @@ import { initialValues, validationSchema } from 'src/models/register';
 import { Values } from 'src/components/Register/types';
 import { Button } from 'src/components';
 import { Group } from 'src/components/Formik';
-import { verifyAdmin } from 'src/auth';
 
 export default function Register({ usersExist }): ReactElement {
   const [responseMessage, setResponseMessage] = useState<string>('');
-  const { setAuthToken } = useStore();
   const router = useRouter();
 
   const handleSubmit = async (values: Values): Promise<any> => {
     try {
       const res: any = await axios.post('users/register', values);
-      setAuthToken(res.token);
       setResponseMessage(res.message);
 
       router.push('/login');
@@ -114,6 +110,8 @@ export default function Register({ usersExist }): ReactElement {
   );
 }
 
+// route guard
+import { verifyAdmin } from 'src/auth';
 export const getServerSideProps = async (context) => {
   return await verifyAdmin(context);
 };
