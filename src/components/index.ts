@@ -1,4 +1,5 @@
 import Loading from './Loading';
 import Button from './Button';
+import Header from './Header';
 
-export { Loading, Button };
+export { Loading, Button, Header };

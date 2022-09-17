@@ -5,6 +5,8 @@ import { useRouter } from 'next/router';
 import cs from 'classnames';
 import s from 'src/components/Login/style.module.scss';
 
+import { Header } from 'src/components';
+
 // Form
 import { Formik, Form, Field } from 'formik';
 import { initialValues, validationSchema } from 'src/models/login';
@@ -28,52 +30,56 @@ export default function Login(): ReactElement {
   };
 
   return (
-    <div id={cs(s.login)}>
-      <div className={cs(s.masterContainer, 'container')}>
-        <div className='row'>
-          <div className='col-lg-12'>
-            <h1 className='text'>Login page</h1>
+    <>
+      <Header />
+
+      <div id={cs(s.login)}>
+        <div className={cs(s.masterContainer, 'container')}>
+          <div className='row'>
+            <div className='col-lg-12'>
+              <h1 className='text'>Login page</h1>
+            </div>
           </div>
+
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={(values: Values) => handleSubmit(values)}
+          >
+            {({ isSubmitting }) => (
+              <Form className='row'>
+                <Group
+                  className='col-lg-12 d-flex flex-column'
+                  labelText='Username:'
+                  name='username'
+                >
+                  <Field type='text' name='username' />
+                </Group>
+
+                <Group
+                  className='col-lg-12 d-flex flex-column'
+                  labelText='Password:'
+                  name='password'
+                >
+                  <Field type='password' name='password' />
+                  <span className='text' style={{ fontSize: '18px' }}>
+                    {responseMessage}
+                  </span>
+                </Group>
+
+                <Button
+                  className='col-lg-12'
+                  type='submit'
+                  disabled={isSubmitting}
+                >
+                  Submit
+                </Button>
+              </Form>
+            )}
+          </Formik>
         </div>
-
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={(values: Values) => handleSubmit(values)}
-        >
-          {({ isSubmitting }) => (
-            <Form className='row'>
-              <Group
-                className='col-lg-12 d-flex flex-column'
-                labelText='Username:'
-                name='username'
-              >
-                <Field type='text' name='username' />
-              </Group>
-
-              <Group
-                className='col-lg-12 d-flex flex-column'
-                labelText='Password:'
-                name='password'
-              >
-                <Field type='password' name='password' />
-                <span className='text' style={{ fontSize: '18px' }}>
-                  {responseMessage}
-                </span>
-              </Group>
-
-              <Button
-                className='col-lg-12'
-                type='submit'
-                disabled={isSubmitting}
-              >
-                Submit
-              </Button>
-            </Form>
-          )}
-        </Formik>
       </div>
-    </div>
+    </>
   );
 }
 

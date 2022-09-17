@@ -26,7 +26,9 @@ const verifyAdmin: VerifyAdmin = async (context, isAdmin = false) => {
 
         if (users?.find((user: { id: number }) => user.id == id)) {
           return {
-            props: {},
+            props: {
+              isAdmin: true,
+            },
           };
         }
       }
@@ -36,7 +38,9 @@ const verifyAdmin: VerifyAdmin = async (context, isAdmin = false) => {
           permanent: false,
           destination: '/login',
         },
-        props: {},
+        props: {
+          isAdmin: true,
+        },
       };
     }
 
