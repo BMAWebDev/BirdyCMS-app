@@ -1,12 +1,12 @@
-import axios from "axios";
+import axios from 'axios';
 
 const Axios = axios.create({
   baseURL: `${process.env.SERVER_URL}/api/`,
   withCredentials: false,
   timeout: 4000,
   headers: {
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json',
   },
 });
 

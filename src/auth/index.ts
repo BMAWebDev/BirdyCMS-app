@@ -1,3 +1,3 @@
-import useAuth from "./use-auth";
+import verifyAdmin from './verify-admin';
 
-export { useAuth };
+export { verifyAdmin };
