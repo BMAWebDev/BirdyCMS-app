@@ -1,23 +1,25 @@
 import { ReactElement } from 'react';
 import Link from 'next/link';
-import { Header } from 'src/components';
+import { Layout } from 'src/components';
+import { PageProps } from 'src/types';
 
-export default function Home(): ReactElement {
+export default function Home({ user }: PageProps): ReactElement {
   return (
-    <>
-      <Header />
+    <Layout user={user}>
       <div>
         <h1>Homepage</h1>
-        <p>
-          Go to <Link href={'/admin'}>admin panel</Link>
-        </p>
+        {(user?.role == 'admin' || user?.role == 'superadmin') && (
+          <p>
+            Go to <Link href={'/admin'}>admin panel</Link>
+          </p>
+        )}
       </div>
-    </>
+    </Layout>
   );
 }
 
 // route guard
-import { verifyAdmin } from 'src/auth';
+import { handleAuth } from 'src/auth';
 export const getServerSideProps = async (context) => {
-  return await verifyAdmin(context);
+  return await handleAuth(context);
 };

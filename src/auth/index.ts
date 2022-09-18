@@ -1,3 +1,3 @@
-import verifyAdmin from './verify-admin';
+import handleAuth from './handle-auth';
 
-export { verifyAdmin };
+export { handleAuth };

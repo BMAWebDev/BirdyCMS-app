@@ -15,7 +15,7 @@ const Dashboard: NextPage = (): ReactElement => {
 export default Dashboard;
 
 // route guard
-import { verifyAdmin } from 'src/auth';
+import { handleAuth } from 'src/auth';
 export const getServerSideProps = async (context) => {
-  return await verifyAdmin(context, true);
+  return await handleAuth(context, true);
 };

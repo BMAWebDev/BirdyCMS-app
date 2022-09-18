@@ -13,10 +13,6 @@ export interface TokenJWT {
   username: string;
 }
 
-export interface PageProps {
-  isAuthenticated: boolean;
-}
-
 export interface Button {
   className?: string;
   href?: string;
@@ -24,4 +20,8 @@ export interface Button {
   target?: string;
   type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
+}
+
+export interface PageProps {
+  user: UserType | null;
 }

@@ -1,8 +1,9 @@
 import { ReactElement } from 'react';
 import axios from 'src/lib/axios';
 import { useRouter } from 'next/router';
+import { PageProps } from 'src/types';
 
-export default function Header(): ReactElement {
+export default function Header({ user }: PageProps): ReactElement {
   const router = useRouter();
 
   const logout = async () => {
@@ -12,30 +13,37 @@ export default function Header(): ReactElement {
   };
 
   return (
-    <div>
-      <h1>Header</h1>
+    <div className='header'>
+      {user && <h1>Header. Hello {user.username}</h1>}
+      {!user && <h1>Header</h1>}
 
       <ul>
-        {router.route != '/login' && (
-          <li onClick={() => router.push('/login')}>Login</li>
+        {!user && (
+          <>
+            {router.route != '/login' && (
+              <li onClick={() => router.push('/login')}>Login</li>
+            )}
+            {router.route != '/register' && (
+              <li onClick={() => router.push('/register')}>Register</li>
+            )}
+          </>
         )}
-        {router.route != '/register' && (
-          <li onClick={() => router.push('/register')}>Register</li>
+        {user && (
+          <li style={{ fontWeight: 'bold' }} onClick={logout}>
+            Logout
+          </li>
         )}
-        <li style={{ fontWeight: 'bold' }} onClick={logout}>
-          Logout
-        </li>
       </ul>
     </div>
   );
 }
 
-// export const getServerSideProps = (context) => {
-//   const { req, res } = context;
+export const getServerSideProps = (context) => {
+  const { req, res } = context;
 
-//   console.log(context);
+  console.log(context);
 
-//   return {
-//     props: {},
-//   };
-// };
+  return {
+    props: {},
+  };
+};

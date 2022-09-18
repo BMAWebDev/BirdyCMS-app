@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import cs from 'classnames';
 import s from 'src/components/Register/style.module.scss';
 
-import { Header } from 'src/components';
+import { Layout } from 'src/components';
 
 // Form
 import { Formik, Form, Field } from 'formik';
@@ -30,8 +30,7 @@ export default function Register({ usersExist }): ReactElement {
   };
 
   return (
-    <>
-      <Header />
+    <Layout>
       <div id={cs(s.register)}>
         <div
           className={cs(
@@ -114,12 +113,12 @@ export default function Register({ usersExist }): ReactElement {
           </Formik>
         </div>
       </div>
-    </>
+    </Layout>
   );
 }
 
 // route guard
-import { verifyAdmin } from 'src/auth';
+import { handleAuth } from 'src/auth';
 export const getServerSideProps = async (context) => {
-  return await verifyAdmin(context);
+  return await handleAuth(context);
 };

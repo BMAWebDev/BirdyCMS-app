@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import cs from 'classnames';
 import s from 'src/components/Login/style.module.scss';
 
-import { Header } from 'src/components';
+import { Layout } from 'src/components';
 
 // Form
 import { Formik, Form, Field } from 'formik';
@@ -30,9 +30,7 @@ export default function Login(): ReactElement {
   };
 
   return (
-    <>
-      <Header />
-
+    <Layout>
       <div id={cs(s.login)}>
         <div className={cs(s.masterContainer, 'container')}>
           <div className='row'>
@@ -79,12 +77,12 @@ export default function Login(): ReactElement {
           </Formik>
         </div>
       </div>
-    </>
+    </Layout>
   );
 }
 
 // route guard
-import { verifyAdmin } from 'src/auth';
+import { handleAuth } from 'src/auth';
 export const getServerSideProps = async (context) => {
-  return await verifyAdmin(context);
+  return await handleAuth(context);
 };
