@@ -1,7 +1,8 @@
 import axios from 'src/lib/axios';
+import { UserType } from 'src/types';
 
 interface UserResponse {
-  user: Object | undefined;
+  user: UserType | undefined;
 }
 
 const getUserDetails = async (userID: number) => {

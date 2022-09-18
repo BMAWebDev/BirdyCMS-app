@@ -37,13 +37,3 @@ export default function Header({ user }: PageProps): ReactElement {
     </div>
   );
 }
-
-export const getServerSideProps = (context) => {
-  const { req, res } = context;
-
-  console.log(context);
-
-  return {
-    props: {},
-  };
-};

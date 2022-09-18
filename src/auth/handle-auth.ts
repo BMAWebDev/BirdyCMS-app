@@ -45,8 +45,20 @@ const handleAuth: HandleAuth = async (context, isAdmin = false) => {
 
     // if users exist and is on an admin page
     if (isAdmin) {
-      if (users?.find((user: { id: number }) => user.id == userID)) {
+      if (user) {
+        if (user.role == 'admin' || user.role == 'superadmin') {
+          return {
+            props: {
+              user: user ? user : null,
+            },
+          };
+        }
+
         return {
+          redirect: {
+            permanent: false,
+            destination: '/',
+          },
           props: {
             user: user ? user : null,
           },
