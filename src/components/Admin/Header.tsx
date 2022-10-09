@@ -1,9 +1,16 @@
 import { ReactElement } from 'react';
 import axios from 'src/lib/axios';
 import { useRouter } from 'next/router';
-import { AdminProps } from 'src/types';
+import { AdminProps } from 'src/components/Admin/types';
+import Link from 'next/link';
 
-export default function Header({ user, types }: AdminProps): ReactElement {
+import cs from 'classnames';
+import s from './style.module.scss';
+
+export default function Header({
+  user,
+  collections,
+}: AdminProps): ReactElement {
   const router = useRouter();
 
   const logout = async () => {
@@ -12,41 +19,64 @@ export default function Header({ user, types }: AdminProps): ReactElement {
     router.push('/');
   };
 
-  return (
-    <div className='header'>
-      {user && <h1>BirdyCMS Admin Panel</h1>}
+  const isActivePage = (route: string) => {
+    return route === router.asPath;
+  };
 
-      <ul>
+  return (
+    <div className={cs(s.header)}>
+      <h1>BirdyCMS Admin Panel - Welcome, {user.username}</h1>
+
+      <ul className={cs(s.headerMenu)}>
         <li>
-          Welcome, {user.username}
-          <ul className='profile'>
-            <li>Go to profile (soon)</li>
-            <li
-              style={{ fontWeight: 'bold', cursor: 'pointer' }}
-              onClick={logout}
-            >
-              Logout
+          <Link href='/admin'>
+            <span className={cs(isActivePage('/admin') ? s.active : '')}>
+              Main page
+            </span>
+          </Link>
+
+          <ul className={cs(s.headerSubMenu, 'profile')}>
+            <li>
+              {/* /admin/profile or /profile, to be decided */}
+              <Link href='/admin/profile'>
+                <span>Go to profile (soon)</span>
+              </Link>
+            </li>
+
+            <li className={cs(s.headerLogoutButton)} onClick={logout}>
+              <span>Logout</span>
             </li>
           </ul>
         </li>
 
         <li>
-          Types
-          <ul className='types'>
-            <li
-              style={{ cursor: 'pointer' }}
-              onClick={() => router.push('/admin/types/create')}
+          <Link href='/admin/collections'>
+            <span
+              className={cs(isActivePage('/admin/collections') ? s.active : '')}
             >
-              Create new type
-            </li>
-            {types.map((type) => {
-              return (
-                <li
-                  key={type.id}
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => router.push(`/admin/types/${type.name}`)}
+              Collections
+            </span>
+          </Link>
+
+          <ul className={cs(s.headerSubMenu, 'collections')}>
+            <li>
+              <Link href='/admin/collections/create'>
+                <span
+                  className={cs(
+                    isActivePage('/admin/collections/create') ? s.active : ''
+                  )}
                 >
-                  {type.name}
+                  Create new type
+                </span>
+              </Link>
+            </li>
+
+            {collections.map((collection) => {
+              return (
+                <li key={collection.id} className={cs(s.collectionItem)}>
+                  <Link href={`/admin/collections/${collection.slug}`}>
+                    <span>{collection.name}</span>
+                  </Link>
                 </li>
               );
             })}

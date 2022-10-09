@@ -1,23 +1,19 @@
-import type { NextPage } from 'next';
-
 import { ReactElement } from 'react';
 import { Layout } from 'src/components/Admin';
 import { AdminProps } from 'src/components/Admin/types';
 
-const Dashboard: NextPage = ({
+import { Table } from 'src/components/Admin/Collections';
+
+export default function Collections({
   user,
   collections,
-}: AdminProps): ReactElement => {
+}: AdminProps): ReactElement {
   return (
     <Layout user={user} collections={collections}>
-      <div>
-        <p>some master content here, the menu will be in the header</p>
-      </div>
+      <Table list={collections} />
     </Layout>
   );
-};
-
-export default Dashboard;
+}
 
 // route guard
 import { GetServerSideProps } from 'next';

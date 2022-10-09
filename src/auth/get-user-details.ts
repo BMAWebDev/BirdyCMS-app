@@ -1,8 +1,8 @@
 import axios from 'src/lib/axios';
-import { UserType } from 'src/types';
+import { UserCollection } from 'src/types';
 
 interface UserResponse {
-  user: UserType | undefined;
+  user: UserCollection | undefined;
 }
 
 const getUserDetails = async (userID: number) => {

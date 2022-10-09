@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export interface UserType {
+export interface UserCollection {
   id: number;
   username: string;
   email: string;
@@ -23,18 +23,5 @@ export interface Button {
 }
 
 export interface PageProps {
-  user: UserType | null;
-}
-
-// Admin panel types
-export interface Type {
-  id: number;
-  name: string;
-  is_editable: boolean;
-  created_at: Date;
-}
-
-export interface AdminProps {
-  user: UserType | null;
-  types: Array<Type>;
+  user: UserCollection | null;
 }

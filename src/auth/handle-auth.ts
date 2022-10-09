@@ -3,13 +3,14 @@ import decodeToken from './decode-token';
 import getUserDetails from './get-user-details';
 import { GetServerSideProps } from 'next';
 import { getCookie } from 'cookies-next';
+import { UserCollection } from 'src/types';
 
 interface HandleAuth extends GetServerSideProps {
   (context: Object, isAdmin?: boolean): Promise<Object>;
 }
 
 interface UsersResponse {
-  users?: Array<Object>;
+  users?: Array<UserCollection>;
   message: string;
 }
 

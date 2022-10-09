@@ -1,13 +1,11 @@
 import { ReactElement } from 'react';
 import Header from './Header';
-import Footer from './Footer';
 
-export default function Layout({ user, types, children }): ReactElement {
+export default function Layout({ user, collections, children }): ReactElement {
   return (
     <div className='content'>
-      <Header user={user} types={types} />
+      <Header user={user} collections={collections} />
       {children}
-      <Footer />
     </div>
   );
 }
